@@ -398,38 +398,38 @@ class GWO():
                     break
 
             if i == maxiter - 2:
-                # # print(0)
-                # # print(i)
-                # self.X[cur] = np.random.uniform(low=self.lb, high=self.ub, size=(self.dim,))
-                # renwu = self.X[cur]
-                # renwu = renwu.reshape(-1, 2)
-                # # i = 0
+                # print(0)
+                # print(i)
+                self.X[cur] = np.random.uniform(low=self.lb, high=self.ub, size=(self.dim,))
+                renwu = self.X[cur]
+                renwu = renwu.reshape(-1, 2)
+                # i = 0
                 break
-                #
-                # outputLine = []  ###输出队列
-                # inputHyjToChedaoGang = []  ###刚刚从输入横移机放入车道
-                # outputHyjTofanGang = []  ###刚刚从输出横移机放入反车道
-                # result = np.zeros(shape=(m, int(maxiter * 3)))
-                # chedaoIndex = np.zeros(shape=(6, 28)) - 1  ###车道上车的编号，没车就是-1
-                # fanIndex = np.zeros(28) - 1  ###返回道上车位的编号，没车为-1
-                # chedaoState = np.zeros(shape=(6, 28))  ###车道上有无车，有车 1，没车 0
-                # fanState = np.zeros(28)  ###反车道上的状态，有车 1，没车 0
-                # fanNunber = 0  ###使用返回道次数
-                # resultHyjStarEnd = np.zeros(shape=(m, 5))  ###0 还没出， 1 在横移机上， 2 在车道上， 3 在输出横移机， 4在终点
-                # resultHyjStarEnd[:, 0] = 1
-                # ifStar = np.zeros(m)
-                # ifStar[0] = 1  ###
-                # if_fanStar = 0  ###返回车道的第 10 车位状态， 0 为空， 1 为满
-                # ifInputHyj = 0  ###入口横移机是否在工作， 0 为空， 1 为满
-                # ifOutputHyj = 0  ###出口横移机是否在工作， 0 为空， 1 为满
-                # timeFanArrive = 0  ###返回道到达时间
-                # fromWhere = 0  ###输入横移机上的车的来源， 0 表示 PBS， 1 表示返回道
-                # arriveIndex = []  ###到达最后一个车位的车道顺序
-                # outOrInput = 0  ###横移机准备把车送出去还是送回返回道， 0 表示去返回道， 1 表示送出去
-                # inputHyjCar = -1  ###初始化输入横移机上的车的编号， -1 表示没有车
-                # OutHyjCar = -1  ###初始化输出横移机上的车编号，没车表示-1
-                # PbsCarCur = 0  ###初始化 PBS->输入横移机上的编号，第一辆为 0
-                # arrive10Chewei = np.zeros(m)
+
+                outputLine = []  ###输出队列
+                inputHyjToChedaoGang = []  ###刚刚从输入横移机放入车道
+                outputHyjTofanGang = []  ###刚刚从输出横移机放入反车道
+                result = np.zeros(shape=(m, int(maxiter * 3)))
+                chedaoIndex = np.zeros(shape=(6, 28)) - 1  ###车道上车的编号，没车就是-1
+                fanIndex = np.zeros(28) - 1  ###返回道上车位的编号，没车为-1
+                chedaoState = np.zeros(shape=(6, 28))  ###车道上有无车，有车 1，没车 0
+                fanState = np.zeros(28)  ###反车道上的状态，有车 1，没车 0
+                fanNunber = 0  ###使用返回道次数
+                resultHyjStarEnd = np.zeros(shape=(m, 5))  ###0 还没出， 1 在横移机上， 2 在车道上， 3 在输出横移机， 4在终点
+                resultHyjStarEnd[:, 0] = 1
+                ifStar = np.zeros(m)
+                ifStar[0] = 1  ###
+                if_fanStar = 0  ###返回车道的第 10 车位状态， 0 为空， 1 为满
+                ifInputHyj = 0  ###入口横移机是否在工作， 0 为空， 1 为满
+                ifOutputHyj = 0  ###出口横移机是否在工作， 0 为空， 1 为满
+                timeFanArrive = 0  ###返回道到达时间
+                fromWhere = 0  ###输入横移机上的车的来源， 0 表示 PBS， 1 表示返回道
+                arriveIndex = []  ###到达最后一个车位的车道顺序
+                outOrInput = 0  ###横移机准备把车送出去还是送回返回道， 0 表示去返回道， 1 表示送出去
+                inputHyjCar = -1  ###初始化输入横移机上的车的编号， -1 表示没有车
+                OutHyjCar = -1  ###初始化输出横移机上的车编号，没车表示-1
+                PbsCarCur = 0  ###初始化 PBS->输入横移机上的编号，第一辆为 0
+                arrive10Chewei = np.zeros(m)
             i += 1
         return result, outputLine, fanNunber, result.shape[1]
 
@@ -464,20 +464,20 @@ class GWO():
         return best_x, best_y
 
 
-# model = GWO(maxiter=400)
-# best_x, best_y = model.run(data_1)
-# plt.plot(model.gen_best_y)
-# plt.show()
-# result, outputLine, fanNunber, costTime = model.genX(maxiter=model.dim / 2, data=data_1, cur=22,
-#                                                      renwu=model.gen_min_x)
-# result = pd.DataFrame(result)
-# result.to_excel('附件 1 的结果.xlsx')
-
 model = GWO(maxiter=400)
-best_x, best_y = model.run(data_2)
+best_x, best_y = model.run(data_1)
 plt.plot(model.gen_best_y)
 plt.show()
-
-result, outputLine, fanNunber,costTime=model.genX(maxiter=model.dim/2,data=data_1,cur=22,renwu=model.gen_min_x)
+result, outputLine, fanNunber, costTime = model.genX(maxiter=model.dim / 2, data=data_1, cur=22,
+                                                     renwu=model.gen_min_x)
 result = pd.DataFrame(result)
-result.to_excel('附件 2 的结果.xlsx')
+result.to_excel('附件 1 的结果.xlsx')
+#
+# model = GWO(maxiter=400)
+# best_x, best_y = model.run(data_2)
+# plt.plot(model.gen_best_y)
+# plt.show()
+#
+# result, outputLine, fanNunber,costTime=model.genX(maxiter=model.dim/2,data=data_1,cur=22,renwu=model.gen_min_x)
+# result = pd.DataFrame(result)
+# result.to_excel('附件 2 的结果.xlsx')
