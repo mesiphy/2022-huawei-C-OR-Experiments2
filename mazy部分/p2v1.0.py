@@ -132,8 +132,8 @@ class GWO():
         for i in range(1, len(a[0])):
             if a[0][i] - a[0][i - 1] == 3:
                 result = result + 1
-        else:
-            cc = cc + 1
+            else:
+                cc = cc + 1
         rrr = cc
         return rrr
 
@@ -160,7 +160,7 @@ class GWO():
                 rrr = rrr + 1
             else:
                 R = R + 1
-        j = j + 2
+            j = j + 2
         if len(rr) % 2:
             R = R + 1
         return R
@@ -207,28 +207,28 @@ class GWO():
                         canRunChedao.remove(j)  ###剩下一定能走的车道
                         needQueren.append(j)  ###需要计算时间确认的车道
 
-            if PbsCarCur < m:
-                if if_fanStar == 0:  ###当返回道的 10 车位为空时，
+                if PbsCarCur < m:
+                    if if_fanStar == 0:  ###当返回道的 10 车位为空时，
         # canRunChedao = [3,2,4,1,5,0] ###输入横移机可选择的部分
-        # canRunChedao.append('等待')
+        # canRunChedao.append('等待')----针对2的修改部分
+                        chooseChedao = renwu[i, 2] * len(canRunChedao)  ###根据既定任务选择车道
+                        chooseChedao = canRunChedao[int(chooseChedao)]  ###选择进哪个车道
+                if if_fanStar == 1:  ###返回车道不为空
                     chooseChedao = renwu[i, 2] * len(canRunChedao)  ###根据既定任务选择车道
-                    chooseChedao = canRunChedao[int(chooseChedao)]  ###选择进哪个车道
-            if if_fanStar == 1:  ###返回车道不为空
-                chooseChedao = renwu[i, 2] * len(canRunChedao)  ###根据既定任务选择车道
-                chooseChedao = canRunChedao[int(chooseChedao)]
-            if chooseChedao != '等待':  ###如果不选择等待
-                timeInputHyjNeed = self.time_in_out[chooseChedao]  ###所选择的车道需要花的时间
-                timeInputHyjWorkCur = i  ###输入横移机开始工作的时间
-                if PbsCarCur < m:  ###仓库内还有车
-                    if renwu[i, 0] > 0.5:  ###指定任务状态
-                        ifInputHyj = 1  ###立刻可以拿车，将横移机置为工作状态
-                        fromWhere = 0  ###记录数据来源，从仓库来的数据
-                        result[PbsCarCur, i * 3:(i + 1) * 3] = 1  ###记录数据
-                        inputHyjCar = PbsCarCur  ###输入横移机从仓库拿车，更新输入横移机上车的序号
-                        PbsCarCur += 1  ###下一辆仓库的出车序号
-            if renwu[i, 0] < 0.5:  ###接返回车道的车
-                fromWhere = 1  ######记录数据来源，从反车道来的数据
-                ifInputHyj = 1  ###此时还没装车，为了方便处理所以将输入横移机的工作状态置为 1
+                    chooseChedao = canRunChedao[int(chooseChedao)]
+                if chooseChedao != '等待':  ###如果不选择等待
+                    timeInputHyjNeed = self.time_in_out[chooseChedao]  ###所选择的车道需要花的时间
+                    timeInputHyjWorkCur = i  ###输入横移机开始工作的时间
+                    if PbsCarCur < m:  ###仓库内还有车
+                        if renwu[i, 0] > 0.5:  ###指定任务状态
+                            ifInputHyj = 1  ###立刻可以拿车，将横移机置为工作状态
+                            fromWhere = 0  ###记录数据来源，从仓库来的数据
+                            result[PbsCarCur, i * 3:(i + 1) * 3] = 1  ###记录数据
+                            inputHyjCar = PbsCarCur  ###输入横移机从仓库拿车，更新输入横移机上车的序号
+                            PbsCarCur += 1  ###下一辆仓库的出车序号
+                if renwu[i, 0] < 0.5:  ###接返回车道的车
+                    fromWhere = 1  ######记录数据来源，从反车道来的数据
+                    ifInputHyj = 1  ###此时还没装车，为了方便处理所以将输入横移机的工作状态置为 1
 
             if i == timeFanArrive + 1:  ###输入横移机到达反车道 10 车位
                 inputHyjCar = fanIndex[0]  ###输入横移机此时携带的车的序号
@@ -473,7 +473,7 @@ class GWO():
 # result = pd.DataFrame(result)
 # result.to_excel('result21.xlsx')
 
-model = GWO(maxiter=400,dim=10000)
+model = GWO(maxiter=5,dim=2000)
 best_x,best_y = model.run(data_2)
 plt.plot(model.gen_best_y)
 plt.show()
