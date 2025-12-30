@@ -109,10 +109,6 @@ model = GreyWolfOptimizer(
 - 1 条返回道（28 个车位）
 - 输入/输出横移机
 
-## 📝 License
-
-MIT License
-
 ## 🤝 贡献
 
 欢迎提交 Issue 和 Pull Request！
